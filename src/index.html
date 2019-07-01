@@ -9,7 +9,8 @@
         <div id="AppContainer" class="parent">
             <script id="item-template" type="x-tmpl-mustache">
                 <a href="#" class="item" id="app-{{id}}" app-id="{{ id }}" onclick="window.launch(this);" style="display:none">
-                    <img id="icon-{{id}}" class="icon" src="/images/icons/blank_inactive.svg">
+                    <img id="icon-inactive-{{id}}" class="icon inactive" src="/images/icons/blank_inactive.svg">
+                    <img id="icon-enabled-{{id}}" class="icon enabled" src="/images/icons/blank_active.svg">
                     <div class="name">
                         {{ name }}
                     </div>

@@ -17,11 +17,13 @@ function show_app(app) {
 
 function display_icon(app) {
     return new Promise(function(resolve, reject) {
-        var iconURL = '/images/icons/'+app.name.toLowerCase()+'_inactive.svg';
+        var iconInactiveURL = '/images/icons/'+app.name.toLowerCase()+'_inactive.svg';
+        var iconActiveURL = '/images/icons/'+app.name.toLowerCase()+'_active.svg';
         var image = new Image();
 
         image.onload = function() {
-            document.getElementById("icon-"+app.id).src = iconURL;
+            document.getElementById("icon-inactive-"+app.id).src = iconInactiveURL;
+            document.getElementById("icon-enabled-"+app.id).src = iconActiveURL;
             resolve();
         }
 
@@ -29,7 +31,7 @@ function display_icon(app) {
             resolve();
         }
 
-        image.src = iconURL;
+        image.src = iconInactiveURL;
 
     });
 }

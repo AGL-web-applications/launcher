@@ -37,6 +37,18 @@ body {
         height: 100%;
 
         .item {
+            &:active {
+                .icon {
+                    &.inactive {
+                        display: none;
+                    }
+
+                    &.enabled{
+                        display: block;
+                    }
+                }
+            }
+
             color: map-get($colors, font);
             text-decoration: none;
 
@@ -44,6 +56,15 @@ body {
             -webkit-animation-duration: 2s;
 
             .icon {
+
+                &.inactive {
+                    display: block;
+                }
+
+                &.enabled{
+                    display: none;
+                }
+
                 width: 70%;
                 margin: 5% 15%;
             }
