@@ -11,19 +11,39 @@ function log(smgs) {
     document.getElementById('log').innerHTML += '<div>'+smgs+'</div>';
 }
 
-function getIcon(app) {
-    if( app.icon.match(/^.*\.svg$/) ) {
-        return '/icons/'+app.id;
-    } else {
-        return '/images/noicon.svg';
-    }
+function show_app(app) {
+    document.getElementById("app-"+app.id).style["display"]="block";
 }
 
-function display_applications(apps) {
+function display_icon(app) {
+    return new Promise(function(resolve, reject) {
+        var iconURL = '/images/icons/'+app.name.toLowerCase()+'_inactive.svg';
+        var image = new Image();
+
+        image.onload = function() {
+            document.getElementById("icon-"+app.id).src = iconURL;
+            resolve();
+        }
+
+        image.onerror = function(){
+            resolve();
+        }
+
+        image.src = iconURL;
+
+    });
+}
+
+
+function render_applications(apps) {
     var appContainer = document.getElementById('AppContainer');
     for( var i=0; i<apps.length; i++) {
-        apps[i].icon = getIcon(apps[i]);
         appContainer.innerHTML += Mustache.render(template, apps[i]);
+        (function(app) {
+            display_icon(app).then(function() {
+                show_app(app);
+            });
+        })(apps[i]);
     }
 }
 
@@ -32,7 +52,7 @@ function load_application_list() {
         var api_verb = "afm-main/runnables";
         ws.call(api_verb, {}).then(
             function(obj) {
-                display_applications(obj.response);
+                render_applications(obj.response);
             },
             function(obj) {
                 //TODO Manage errors
@@ -73,7 +93,8 @@ export function init() {
 
     // host: "raspberrypi3.local:31022",
     afb = new AFB({
-        host: host+":"+port,
+        host: "raspberrypi3.local:31022",
+        // host: host+":"+port,
         token: token
     });
     load_application_list();

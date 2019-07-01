@@ -8,8 +8,8 @@
     <body>
         <div id="AppContainer" class="parent">
             <script id="item-template" type="x-tmpl-mustache">
-                <a href="#" class="item" app-id="{{ id }}" onclick="window.launch(this);">
-                    <img class="icon" src="{{ icon }}" onload="SVGInject(this);">
+                <a href="#" class="item" id="app-{{id}}" app-id="{{ id }}" onclick="window.launch(this);" style="display:none">
+                    <img id="icon-{{id}}" class="icon" src="/images/icons/blank_inactive.svg">
                     <div class="name">
                         {{ name }}
                     </div>
