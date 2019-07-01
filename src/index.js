@@ -1,5 +1,4 @@
 /* JS */
-import '@iconfu/svg-inject';
 import './js/AFB.js';
 import { init, launch } from './js/app.js';
 
