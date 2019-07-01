@@ -1,4 +1,5 @@
 import Mustache from 'mustache';
+var configjson = require('../config.json');
 
 var host = document.location.hostname;
 var port = document.location.port;
@@ -40,12 +41,14 @@ function display_icon(app) {
 function render_applications(apps) {
     var appContainer = document.getElementById('AppContainer');
     for( var i=0; i<apps.length; i++) {
-        appContainer.innerHTML += Mustache.render(template, apps[i]);
-        (function(app) {
-            display_icon(app).then(function() {
-                show_app(app);
-            });
-        })(apps[i]);
+        if( configjson.black_list.indexOf(apps[i].id) === -1 ) {
+            appContainer.innerHTML += Mustache.render(template, apps[i]);
+            (function(app) {
+                display_icon(app).then(function() {
+                    show_app(app);
+                });
+            })(apps[i]);
+        }
     }
 }
 
