@@ -98,8 +98,7 @@ export function init() {
 
     // host: "raspberrypi3.local:31022",
     afb = new AFB({
-        host: "raspberrypi3.local:31022",
-        // host: host+":"+port,
+        host: host+":"+port,
         token: token
     });
     load_application_list();
