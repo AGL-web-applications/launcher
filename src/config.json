@@ -1,4 +1,5 @@
 {
     "black_list": [
+	"webapps-html5-homescreen@5.0", "launcher@0.1", "homescreen@0.1"
     ]
 }
