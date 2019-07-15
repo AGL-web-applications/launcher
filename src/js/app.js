@@ -87,6 +87,27 @@ function load_application_list() {
     });
 }
 
+export function display(app) {
+    var appId = app.getAttribute('app-id');
+    var ws = new afb.ws(function() {
+        var api_verb = "homescreen/showWindow";
+        var request = {application_id: appId, area: "normal.full"};
+        ws.call(api_verb, request).then(
+            function(obj) {
+                log("success: " + obj.response);
+            },
+            function(obj) {
+                //TODO Manage errors
+                log("failure on display");
+            }
+        );
+    },
+    function() {
+        //TODO Manage errors
+        log("ws aborted");
+    });
+}
+
 export function launch(app) {
     var appId = app.getAttribute('app-id');
     var ws = new afb.ws(function() {
@@ -95,10 +116,11 @@ export function launch(app) {
         ws.call(api_verb, request).then(
             function(obj) {
                 log("success: " + obj.response);
+                display(app);
             },
             function(obj) {
                 //TODO Manage errors
-                log("failure");
+                log("failure on launch");
             }
         );
     },
