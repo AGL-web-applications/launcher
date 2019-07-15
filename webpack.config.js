@@ -55,7 +55,7 @@ module.exports = {
         }),
         new ZipPlugin({
             path: __dirname + '/dist',
-            filename: 'homescreen',
+            filename: 'html5-launcher',
             extension: 'wgt',
             exclude: []
         })

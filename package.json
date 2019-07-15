@@ -1,7 +1,7 @@
 {
-    "name": "agl-homescreen",
-    "version": "0.0.0",
-    "description": "Homescreen project for AGL based on html5 technologies",
+    "name": "agl-launcher",
+    "version": "1.0.0",
+    "description": "Launcher application for AGL based on html5 technologies",
     "scripts": {
         "webpack": "webpack",
         "build": "webpack",
