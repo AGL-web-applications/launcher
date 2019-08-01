@@ -91,7 +91,8 @@ export function display(app) {
     var appId = app.getAttribute('app-id');
     var ws = new afb.ws(function() {
         var api_verb = "homescreen/showWindow";
-        var request = {application_id: appId, area: "normal.full"};
+        var split_id = appId.split('@');
+        var request = {application_id: split_id[0], parameter: {area: "normal.full"}};
         ws.call(api_verb, request).then(
             function(obj) {
                 log("success: " + obj.response);
