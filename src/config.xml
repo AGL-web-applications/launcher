@@ -8,6 +8,8 @@
   <license>APL 2.0</license>
   <feature name="urn:AGL:widget:required-permission">
     <param name="urn:AGL:permission::public:no-htdocs" value="required" />
+    <param name="urn:AGL:permission::public:display" value="required" />
+    <param name="urn:AGL:permission::public:audio" value="required" />
     <param name="urn:AGL:permission:afm:system:widget" value="required" /> <!-- list available apps -->
     <param name="urn:AGL:permission:afm:system:runner" value="required" /> <!-- run other apps -->
     <param name="urn:AGL:permission::public:applications:read" value="required" /> <!-- get app icons -->
