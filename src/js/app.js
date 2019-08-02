@@ -22,6 +22,7 @@ var port = document.location.port;
 var args = new URLSearchParams(document.location.search.substring(1));
 var token = args.get("x-afb-token") || args.get("token") || "HELLO";
 var afb;
+var afbws;
 var template;
 
 function log(smgs) {
@@ -69,66 +70,48 @@ function render_applications(apps) {
 }
 
 function load_application_list() {
-    var ws = new afb.ws(function() {
-        var api_verb = "afm-main/runnables";
-        ws.call(api_verb, {}).then(
-            function(obj) {
-                render_applications(obj.response);
-            },
-            function(obj) {
-                //TODO Manage errors
-                log("failure");
-            }
-        );
-    },
-    function() {
-        //TODO manage errors
-        log("ws aborted");
-    });
+    var api_verb = "afm-main/runnables";
+    afbws.call(api_verb, {}).then(
+        function(obj) {
+            render_applications(obj.response);
+        },
+        function(obj) {
+            //TODO Manage errors
+            log("failure");
+        }
+    );
 }
 
 export function display(app) {
     var appId = app.getAttribute('app-id');
-    var ws = new afb.ws(function() {
-        var api_verb = "homescreen/showWindow";
-        var split_id = appId.split('@');
-        var request = {application_id: split_id[0], parameter: {area: "normal.full"}};
-        ws.call(api_verb, request).then(
-            function(obj) {
-                log("success: " + obj.response);
-            },
-            function(obj) {
-                //TODO Manage errors
-                log("failure on display");
-            }
-        );
-    },
-    function() {
-        //TODO Manage errors
-        log("ws aborted");
-    });
+    var api_verb = "homescreen/showWindow";
+    var split_id = appId.split('@');
+    var request = {application_id: split_id[0], parameter: {area: "normal.full"}};
+    afbws.call(api_verb, request).then(
+        function(obj) {
+            log("success: " + obj.response);
+        },
+        function(obj) {
+            //TODO Manage errors
+            log("failure on display");
+        }
+    );
 }
 
 export function launch(app) {
     var appId = app.getAttribute('app-id');
-    var ws = new afb.ws(function() {
-        var api_verb = "afm-main/start";
-        var request = {id: appId};
-        ws.call(api_verb, request).then(
-            function(obj) {
-                log("success: " + obj.response);
-                display(app);
-            },
-            function(obj) {
-                //TODO Manage errors
-                log("failure on launch");
-            }
-        );
-    },
-    function() {
-        //TODO Manage errors
-        log("ws aborted");
-    });
+    var api_verb = "afm-main/start";
+    var request = {id: appId};
+    afbws.call(api_verb, request).then(
+        function(obj) {
+            log("success: " + obj.response);
+            display(app);
+        },
+        function(obj) {
+            //TODO Manage errors
+            log("failure on launch");
+        }
+    );
 }
 
 export function init() {
@@ -140,5 +123,5 @@ export function init() {
         host: host+":"+port,
         token: token
     });
-    load_application_list();
+    afbws = new afb.ws(load_application_list,function(){afbws=null;});
 }
