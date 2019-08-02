@@ -9,6 +9,6 @@ Launcher application for AGL based on html5 technologies.
 
 ## Installing
 
-* Copy `dist/html5-launcher.wgt` to your board.
+* Copy `package/html5-launcher.wgt` to your board.
 * `afm-util install html5-launcher.wgt`
 
