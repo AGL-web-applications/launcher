@@ -15,13 +15,9 @@
  */
 
 import Mustache from 'mustache';
-var configjson = require('../config.json');
+import { afmMain } from 'agl-js-api';
 
-var host = document.location.hostname;
-var port = document.location.port;
-var args = new URLSearchParams(document.location.search.substring(1));
-var token = args.get("x-afb-token") || args.get("token") || "HELLO";
-var afb;
+var configjson = require('../config.json');
 var template;
 
 function log(smgs) {
@@ -69,53 +65,20 @@ function render_applications(apps) {
 }
 
 function load_application_list() {
-    var ws = new afb.ws(function() {
-        var api_verb = "afm-main/runnables";
-        ws.call(api_verb, {}).then(
-            function(obj) {
-                render_applications(obj.response);
-            },
-            function(obj) {
-                //TODO Manage errors
-                log("failure");
-            }
-        );
-    },
-    function() {
-        //TODO manage errors
-        log("ws aborted");
+    afmMain.runnables().then(function(result) {
+        render_applications(result);
     });
 }
 
 export function launch(app) {
     var appId = app.getAttribute('app-id');
-    var ws = new afb.ws(function() {
-        var api_verb = "afm-main/start";
-        var request = {id: appId};
-        ws.call(api_verb, request).then(
-            function(obj) {
-                log("success: " + obj.response);
-            },
-            function(obj) {
-                //TODO Manage errors
-                log("failure");
-            }
-        );
-    },
-    function() {
-        //TODO Manage errors
-        log("ws aborted");
+    afmMain.start(appId).then(function(result) {
+        log("success: " + result);
     });
 }
 
 export function init() {
     template = document.getElementById('item-template').innerHTML;
     Mustache.parse(template);
-
-    // host: "raspberrypi3.local:31022",
-    afb = new AFB({
-        host: host+":"+port,
-        token: token
-    });
     load_application_list();
 }
