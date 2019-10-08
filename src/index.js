@@ -15,7 +15,6 @@
  */
 
 /* JS */
-import './js/AFB.js';
 import { init, launch } from './js/app.js';
 
 /* CSS */
