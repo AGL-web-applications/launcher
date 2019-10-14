@@ -15,7 +15,7 @@
  */
 
 import Mustache from 'mustache';
-import { afmMain } from 'agl-js-api';
+import { afmMain, api } from 'agl-js-api';
 
 var configjson = require('../config.json');
 var template;
@@ -78,6 +78,7 @@ export function launch(app) {
 }
 
 export function init() {
+    api.init();
     template = document.getElementById('item-template').innerHTML;
     Mustache.parse(template);
     load_application_list();
