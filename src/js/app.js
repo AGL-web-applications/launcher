@@ -15,7 +15,7 @@
  */
 
 import Mustache from 'mustache';
-import { afmMain, api } from 'agl-js-api';
+import { afmMain, api, homescreen } from 'agl-js-api';
 
 var configjson = require('../config.json');
 var template;
@@ -72,7 +72,7 @@ function load_application_list() {
 
 export function launch(app) {
     var appId = app.getAttribute('app-id');
-    afmMain.start(appId).then(function(result) {
+    homescreen.showWindow(appId.split('@')[0]).then(function(result) {
         log("success: " + result);
     });
 }
