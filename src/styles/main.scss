@@ -24,56 +24,29 @@ html {
 }
 
 body {
-    font-size: 1.2rem;
-    font-family: Arial;
-    color: map-get($colors, font);
-    margin: 0 5%;
-
-    .parent {
+    .list-group.scrollable {
+        height: 720px;
+        overflow: scroll;
+    }
+    .grid {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: flex-start;
-        align-items: flex-start;
+        align-items: center;
         height: 100%;
 
         .item {
-            &:active {
+            display: flex;
+            justify-content: center;
+
+            button {
+                width: 300px;
+                height: 300px;
+
                 .icon {
-                    &.inactive {
-                        display: none;
-                    }
-
-                    &.enabled{
-                        display: block;
-                    }
+                    font-size: 7rem;
                 }
-            }
-
-            color: map-get($colors, font);
-            text-decoration: none;
-
-            -webkit-animation-name: animation;
-            -webkit-animation-duration: 2s;
-
-            .icon {
-
-                &.inactive {
-                    display: block;
-                }
-
-                &.enabled{
-                    display: none;
-                }
-
-                width: 70%;
-                margin: 5% 15%;
-            }
-
-            .name {
-                width: 100%;
-                text-align: center;
-                text-transform: uppercase;
             }
         }
     }

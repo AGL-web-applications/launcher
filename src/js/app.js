@@ -15,63 +15,45 @@
  */
 
 import Mustache from 'mustache';
+import { load as load_template } from './templates';
 import { afmMain, api, homescreen } from 'agl-js-api';
 
 var configjson = require('../config.json');
 var template;
+var page = {
+    apps: []
+};
 
-function log(smgs) {
-    document.getElementById('log').innerHTML += '<div>'+smgs+'</div>';
-}
-
-function show_app(app) {
-    document.getElementById("app-"+app.id).style["display"]="block";
-}
-
-function display_icon(app) {
-    return new Promise(function(resolve, reject) {
-        var iconInactiveURL = '/images/icons/'+app.name.toLowerCase()+'_inactive.svg';
-        var iconActiveURL = '/images/icons/'+app.name.toLowerCase()+'_active.svg';
-        var image = new Image();
-
-        image.onload = function() {
-            document.getElementById("icon-inactive-"+app.id).src = iconInactiveURL;
-            document.getElementById("icon-enabled-"+app.id).src = iconActiveURL;
-            resolve();
-        }
-
-        image.onerror = function(){
-            resolve();
-        }
-
-        image.src = iconInactiveURL;
-
-    });
-}
-
-
-function render_applications(apps) {
-    var appContainer = document.getElementById('AppContainer');
-    for( var i=0; i<apps.length; i++) {
-        if( configjson.black_list.indexOf(apps[i].id) === -1 ) {
-            appContainer.innerHTML += Mustache.render(template, apps[i]);
-            (function(app) {
-                display_icon(app).then(function() {
-                    show_app(app);
-                });
-            })(apps[i]);
-        }
-    }
+function render() {
+    document.body.innerHTML = Mustache.render(template, page);
 }
 
 function load_application_list() {
-    afmMain.runnables().then(function(result) {
-        render_applications(result);
+    load_template('apps.json').then(function(apps) {
+        apps = JSON.parse(apps);
+        page.apps = [];
+
+        for( var i=0; i<apps.length; i++) { 
+            if( configjson.black_list.indexOf(apps[i].id) === -1 ) {
+                (function(app) {
+                    if( configjson.icons[app.id.split('@')[0]] ) {
+                        app.icon = configjson.icons[app.id.split('@')[0]];
+                    } else {
+                        app.icon = undefined;
+                        app.letter = app.name[0];
+                    }
+
+                    page.apps.push(app);
+                })(apps[i]);
+            }
+        }
+        
+        render();
     });
 }
 
-export function launch(app) {
-    var appId = app.getAttribute('app-id');
+export function launch(appId) {
+    console.log(appId);
     homescreen.showWindow(appId.split('@')[0]).then(function(result) {
         log("success: " + result);
     });
@@ -79,7 +61,12 @@ export function launch(app) {
 
 export function init() {
     api.init();
-    template = document.getElementById('item-template').innerHTML;
-    Mustache.parse(template);
-    load_application_list();
+    load_template('apps.template.html').then(function(result) {
+        template = result;
+        Mustache.parse(template);
+        load_application_list();
+    }, function(error) {
+        console.error('ERRROR loading main template', error);
+    });
+    
 }

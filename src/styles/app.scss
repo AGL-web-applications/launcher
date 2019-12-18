@@ -1,35 +1,31 @@
-$colors: (
-  primary:          #00ADDC,
-  font:             #999999
-);
+$body-bg: transparent;
+$body-color: #FFFFFF;
+$list-group-bg: transparent;
+$font-size-base: 1.5rem;
+$input-bg: transparent;
+$input-color: #FFFFFF;
+@import "~bootstrap/scss/bootstrap";
 @media (max-device-width: 720px) and (orientation: portrait) {
-    $header_size: 145px;
-
     @import "main.scss";
     @import "portrait.scss";
     @import "720.scss";
 }
 
 @media (max-device-width: 1280px) and (orientation: landscape) {
-    $header_size: 145px;
-
     @import "main.scss";
     @import "landscape.scss";
     @import "720.scss";
 }
 
 @media (min-device-width: 1080px) and (orientation: portrait) {
-    $header_size: 218px;
-
     @import "main.scss";
     @import "portrait.scss";
     @import "1080.scss";
 }
 
-@media (min-device-width: 1920px) and (orientation: landscape) {
-    $header_size: 218px;
-
+@media (min-device-width: 1490px) and (orientation: landscape) {
     @import "main.scss";
     @import "landscape.scss";
     @import "1080.scss";
 }
+@import "~@fortawesome/fontawesome-free/css/all.min.css";

@@ -1,5 +1,15 @@
 {
     "black_list": [
-	"webapps-html5-launcher@1.0", "homescreen@0.1"
-    ]
+	"webapps-html5-launcher@1.0", "homescreen@0.1", "webapps-html5-homescreen@1.0"
+    ],
+    "icons": {
+        "webapps-aquarium": "fas fa-fish",
+        "webapps-falling-blocks": "fas fa-cubes",
+        "webapps-mixer": "fas fa-volume-up",
+        "taskmanager": "fas fa-tasks",
+        "browser": "fab fa-chrome",
+        "webapps-hvac": "fas fa-thermometer-half",
+        "webapps-youtube": "fab fa-youtube",
+        "webapps-settings": "fas fa-cogs"
+    }
 }
