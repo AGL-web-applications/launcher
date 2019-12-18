@@ -18,6 +18,7 @@
         "automotivegradelinux"
     ],
     "devDependencies": {
+        "@fortawesome/fontawesome-free": "^5.11.2",
         "clean-webpack-plugin": "^1.0.1",
         "copy-webpack-plugin": "^4.6.0",
         "css-loader": "^2.1.0",
@@ -36,6 +37,7 @@
     },
     "dependencies": {
         "agl-js-api": "https://github.com/AGL-web-applications/agl-js-api.git#master",
+        "bootstrap": "4.4.1",
         "mustache": "^3.0.1"
     }
 }

@@ -15,11 +15,11 @@
  */
 
 /* JS */
-import { init, launch } from './js/app.js';
+import * as app from './js/app.js';
 
 /* CSS */
 import './styles/app.scss';
 
-window.launch = launch;
+window.app = app;
 
-document.addEventListener('DOMContentLoaded', init);
+document.addEventListener('DOMContentLoaded', app.init);

@@ -1,0 +1,17 @@
+<div class="grid">
+    {{ #apps }}
+        <div class="item my-3">
+            <button type="button" class="btn btn-outline-primary" onclick="app.launch('{{id}}')">
+                <h1 class="icon text-center">
+                    {{ #icon }}
+                        <i class="{{ . }}"></i>
+                    {{ /icon }}
+                    {{ #letter }}
+                        {{ . }}
+                    {{ /letter }}
+                </h1>
+                {{ name }}
+            </button>
+        </div>
+    {{ /apps }}
+</div>
