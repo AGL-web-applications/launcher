@@ -29,8 +29,7 @@ function render() {
 }
 
 function load_application_list() {
-    load_template('apps.json').then(function(apps) {
-        apps = JSON.parse(apps);
+    afmMain.runnables().then(function(apps) {
         page.apps = [];
 
         for( var i=0; i<apps.length; i++) { 
