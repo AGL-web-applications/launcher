@@ -10,6 +10,8 @@
         "browser": "fab fa-chrome",
         "webapps-hvac": "fas fa-thermometer-half",
         "webapps-youtube": "fab fa-youtube",
-        "webapps-settings": "fas fa-cogs"
+        "webapps-settings": "fas fa-cogs",
+        "webapps-dashboard": "fas fa-car",
+        "webapps-mediaplayer": "fas fa-music"
     }
 }
